@@ -1,0 +1,16 @@
+node_modules
+yatn-error.log
+
+package-lock.json
+
+reports
+
+nightwatch.settings.json
+
+.env
+
+.csspellcache
+
+/sites/*/files/php/*
+/sites/*/files/css/*
+/sites/*/files/js/*
