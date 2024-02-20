@@ -1,0 +1,42 @@
+version: '3'
+services:
+  web:
+    build: apache
+    env_file:
+      - .env
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./app:/app
+      - ./apache/exemplo.lan.conf:/etc/apache2/sites-enabled/exemplo.lan.conf
+      - ./apache/exemplo.lan.pem:/etc/ssl/certs/exemplo.lan.pem
+      - ./apache/exemplo.lan.key:/etc/ssl/certs/exemplo.lan.key
+      - ./apache/a22oscarnm.loseyourip.com.pem:/etc/ssl/certs/a22oscarnm.loseyourip.com.pem
+      - ./apache/a22oscarnm.loseyourip.com.key:/etc/ssl/private/a22oscarnm.loseyourip.com.key
+
+  basedatos:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD_HASH: dc76e9f0c0006e8f919e0c515c66dbba3982f785
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    volumes:
+      - datos:/var/lib/mysql
+      - ./db/backup.sql:/docker-entrypoint-initdb.d
+      - ./db:/db
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: basedatos
+      MYSQL_ROOT_PASSWORD: root #&sQ0@C^8vVNXyn$uLI
+      MYSQL_DATABASE: db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+
+volumes:
+  datos:
