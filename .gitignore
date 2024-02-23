@@ -1,0 +1,5 @@
+/sites/*/files/php/*
+/sites/*/files/css/*
+/sites/*/files/js/*
+
+.env*
